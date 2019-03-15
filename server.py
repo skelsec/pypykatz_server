@@ -18,6 +18,7 @@ if __name__ == '__main__':
 	socket_group.add_argument('-l', '--listen-ip', default = '0.0.0.0', help='IP address to listen on. Default 0.0.0.0')
 	socket_group.add_argument('-p', '--listen-port', type=int, default = 54545, help = 'Port to listen on. Default 54545')
 	socket_group.add_argument('-o', '--out-dir', default = 'creds', help = 'Directory to stroe credentials')
+	socket_group.add_argument('-r', '--return-data', action='store_true', help = 'Return data to the client after sucsessul dump')
 	
 	args = parser.parse_args()
 	
@@ -26,5 +27,5 @@ if __name__ == '__main__':
 	r.daemon = True
 	r.start()
 	print('[+] Starting server...')
-	server = ThreadedPYPYSocketServer(args.listen_ip, args.listen_port, resQ)
+	server = ThreadedPYPYSocketServer(args.listen_ip, args.listen_port, resQ, args.return_data)
 	server.run()

