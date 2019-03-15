@@ -10,6 +10,13 @@ class ResultProcessing(Process):
 		self.resQ = resQ
 		self.output_dir = output_dir
 		
+		if not os.path.exists(self.output_dir):
+			try:
+				os.makedirs(self.output_dir)
+			except Exception as e:
+				traceback.print_exc()
+		
+		
 	def run(self):
 		while True:
 			data = self.resQ.get()
