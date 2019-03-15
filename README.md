@@ -31,3 +31,5 @@ Optional, defaults to ```54545```
 3. ```output_dir```  
   Output directory to store credentials in  
   Optional, defaults to ```creds```
+4. ```r```  
+  Server will push back the results to the agent.
